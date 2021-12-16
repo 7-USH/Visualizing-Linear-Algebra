@@ -1,0 +1,6 @@
+file 'file:D:/Assignments/_Python Codes/ManimProjects/media/videos/allScene/480p15/partial_movie_files/FourierBasis/00000.mp4'
+file 'file:D:/Assignments/_Python Codes/ManimProjects/media/videos/allScene/480p15/partial_movie_files/FourierBasis/00001.mp4'
+file 'file:D:/Assignments/_Python Codes/ManimProjects/media/videos/allScene/480p15/partial_movie_files/FourierBasis/00002.mp4'
+file 'file:D:/Assignments/_Python Codes/ManimProjects/media/videos/allScene/480p15/partial_movie_files/FourierBasis/00003.mp4'
+file 'file:D:/Assignments/_Python Codes/ManimProjects/media/videos/allScene/480p15/partial_movie_files/FourierBasis/00004.mp4'
+file 'file:D:/Assignments/_Python Codes/ManimProjects/media/videos/allScene/480p15/partial_movie_files/FourierBasis/00005.mp4'
