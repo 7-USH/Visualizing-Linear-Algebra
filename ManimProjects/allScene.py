@@ -5,6 +5,7 @@ from seaborn.axisgrid import Grid
 from manimlib.imports import *
 from manim import *
 import numpy as np
+import os
 
 class GrayScaleScene(Scene):
     def construct(self):
@@ -699,3 +700,95 @@ class VJTILogo(Scene):
         addedImage.scale(1.5).shift(LEFT*4)
         self.play(FadeIn(addedImage,run_time=2))
         self.wait()
+
+class ExplaningGrowth(Scene):
+	def construct(self):
+		t1 = TextMobject("This is how a vector", "Scales",
+		                 "when multiplied by a number", "greater than 1")
+		t1[1].set_color(GREEN)
+		t1[3].set_color(BLUE)
+		t1[0].move_to(1.5*UP)
+		t1[1].move_to(1*UP)
+		t1[2].move_to(0.5*UP)
+		t1[3].move_to(0)
+		self.play(Write(t1))
+		self.wait(1.5)
+
+class ScalingGrow(LinearTransformationScene):
+    CONFIG = {
+        "leave_ghost_vectors": True,
+        }
+
+    def construct(self):
+        v = np.array([[1], [1]])
+        obj = Dot(color=DARK_BLUE)
+        matrix = [[2, 0], [0, 2]]
+        self.add(obj)
+        self.add_vector(v)
+        self.apply_matrix(matrix=matrix)
+        self.wait()
+
+class ReflectionAboutXAxisExplanation(Scene):
+	def construct(self):
+		t1 = TextMobject("Now Let's visualise a ", "Reflection","about X axis")
+		t1[1].set_color(YELLOW)
+		self.play(Write(t1))
+		self.wait()
+
+class ReflectionAboutXAxis(LinearTransformationScene):
+	CONFIG = {
+		"leave_ghost_vectors": True,
+	}
+
+	def construct(self):
+		matrix = [[1, 0], [0, -1]]
+		object = Dot(color=DARK_BLUE)
+		self.add(object)
+		v = np.array([[-1], [2]])
+		self.add_vector(v)
+		self.apply_matrix(matrix)
+		self.wait()
+
+class AntiClockWiseRotation60Explanation(Scene):
+	def construct(self):
+		t1 = TextMobject("This is a 60 degree", " Anticlockwise Rotation")
+		t1[1].set_color(YELLOW)
+		self.play(Write(t1))
+		self.wait()
+
+class AntiClockWiseRotation60(LinearTransformationScene):
+	CONFIG = {
+		"leave_ghost_vectors": True,
+		"angle": np.pi/3,
+	}
+
+	def construct(self):
+            matrix = [[np.cos(self.angle), -1*np.sin(self.angle)],
+                [np.sin(self.angle), np.cos(self.angle)]]
+            object = Dot(color=DARK_BLUE)
+            self.add(object)
+            v = np.array([[2], [1]])
+            self.add_vector(v)
+            self.apply_matrix(matrix)
+            self.wait()
+
+class ShearInXDirectionExplanation(Scene):
+	def construct(self):
+		t1 = TextMobject("This is a ", "Shear", " in ", "x ", "direction")
+		t1[1].set_color(YELLOW)
+		t1[3].set_color(GREEN)
+		self.play(Write(t1))
+		self.wait()
+
+class ShearInXDirection(LinearTransformationScene):
+	CONFIG = {
+		"leave_ghost_vectors": True,
+	}
+
+	def construct(self):
+		matrix = [[1, 1], [0, 1]]
+		object = Dot(color=DARK_BLUE)
+		v = np.array([[2], [2]])
+		self.add_vector(v)
+		self.apply_matrix(matrix)
+		self.wait()
