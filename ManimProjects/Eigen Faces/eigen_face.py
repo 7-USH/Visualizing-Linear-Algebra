@@ -7,7 +7,6 @@ from manimlib.imports import *
 from manim import *
 import cv
 
-
 class EigenFace(Scene):
     def construct(self):
         dir = r'lfwcrop_grey\faces'
