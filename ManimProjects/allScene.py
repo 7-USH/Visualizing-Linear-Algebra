@@ -5,6 +5,7 @@ from seaborn.axisgrid import Grid
 from manimlib.imports import *
 from manim import *
 import numpy as np
+from manim_presentation import *
 import os
 
 class GrayScaleScene(Scene):
@@ -713,7 +714,7 @@ class ExplaningGrowth(Scene):
 		t1[3].move_to(0)
 		self.play(Write(t1))
 		self.wait(1.5)
-
+              
 class ScalingGrow(LinearTransformationScene):
     CONFIG = {
         "leave_ghost_vectors": True,
@@ -730,7 +731,7 @@ class ScalingGrow(LinearTransformationScene):
 
 class ReflectionAboutXAxisExplanation(Scene):
 	def construct(self):
-		t1 = TextMobject("Now Let's visualise a ", "Reflection","about X axis")
+		t1 = TextMobject("Now Let's visualise a ", "Reflection ","about X axis")
 		t1[1].set_color(YELLOW)
 		self.play(Write(t1))
 		self.wait()
@@ -792,3 +793,19 @@ class ShearInXDirection(LinearTransformationScene):
 		self.add_vector(v)
 		self.apply_matrix(matrix)
 		self.wait()
+
+class AffineTransformation(Scene):
+    def construct(self):
+        ax = Axes(x_range=[0, 10, 2], tips=False,)
+        square = Square()
+        coords = np.around(ax.point_to_coords())
+        label = ((
+            Matrix([[coords[0]], [coords[1]]]).scale(0.75).next_to(square, RIGHT)
+        ))
+        textMatrix = TexMobject("a_{0}")
+        textMatrix.next_to(label)
+        plus = TexMobject("+")
+        plus.next_to(textMatrix)
+        
+        self.add(ax,square,label,Dot(square.get_right()))
+        self.wait()
