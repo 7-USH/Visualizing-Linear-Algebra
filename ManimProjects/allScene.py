@@ -12,6 +12,15 @@ class GrayScaleScene(Scene):
     def construct(self):
         sns.set(color_codes=True)
 
+
+        whyRGB = TextMobject("Why"," R","G","B"," ?",run_time=3).scale(2.4)
+        whyRGB[1].set_color(RED)
+        whyRGB[2].set_color(GREEN)
+        whyRGB[3].set_color(BLUE)
+        self.play(Write(whyRGB))
+        self.wait(3)
+        self.clear()
+
         oriImage = ImageMobject('demoCartoon.png')
         oriImage.shift(LEFT*2)
         self.play(FadeIn(oriImage))
@@ -71,17 +80,7 @@ class GrayScaleScene(Scene):
 
         self.wait()
 
-        rendered_code = Code(file_name="openCVimage.py", background="white",
-                             line_spacing=0.3,
-                             tab_width=3,
-                             background_stroke_width=1,
-                             background_stroke_color=WHITE,
-                             language="Python", font="Monospace", insert_line_no=False)
-        rendered_code.scale(0.7).move_to(UR*0.2)
-        self.add(rendered_code)
-        self.wait()
-
-
+        
 class FourierBasis(Scene):
     def construct(self):
 
