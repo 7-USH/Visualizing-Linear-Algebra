@@ -703,11 +703,30 @@ class VJTILogo(Scene):
                   Transform(braceAtext, finalMat),
                   Transform(braceBtext, finalMat),
                   Transform(vjtiTex[2], finalMat),
-                  )
+                  )     
         self.wait(2)
         self.clear()
         addedImage.scale(1.5).shift(LEFT*4)
-        self.play(FadeIn(addedImage, run_time=2))
+        self.play(FadeIn(addedImage),run_time=4)
+        self.wait()
+        self.clear()
+
+        galaxy = TextMobject("NGC 3749 galaxy").scale(0.9)
+        figure1 = ImageMobject("figure1.jpg").scale(2.4)
+        figure1Desc = TextMobject("Figure 1. ","Image adapted from Astronomy.com").scale(0.7)
+        galaxy.next_to(figure1,direction=TOP,buff=0.1)
+        figure1Desc[0].set_color(RED)
+        figure1Desc.next_to(figure1,direction=DOWN)
+        self.play(Write(figure1Desc), Write(galaxy), FadeIn(figure1),run_time=3)
+        self.wait(3)
+        self.clear()
+
+        figure2 = ImageMobject("figure2.png").scale(2.5)
+        figure2Desc = TextMobject(
+            "Figure 2. ", "Image adapted from Astronomy.com").scale(0.7)
+        figure2Desc[0].set_color(RED)
+        figure2Desc.next_to(figure2,DOWN)    
+        self.play(FadeIn(figure2),Write(figure2Desc))
         self.wait()
 
 
