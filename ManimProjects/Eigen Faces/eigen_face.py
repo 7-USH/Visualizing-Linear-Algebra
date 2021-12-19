@@ -16,18 +16,21 @@ class EigenFace(Scene):
         celebrity_names = [
             name[:name.find('0')-1].replace("_", " ") for name in celebrity_photos]
         originalImages = self.images
-        resultText = VGroup(TextMobject("We gathered the potraits of 1000 people"), TextMobject(
+        resultText = VGroup(TextMobject("We gathered the potraits of", " 1000 ", "people"), TextMobject(
             "for the facial recognition using Eigen Faces"))
-        resultText.arrange(direction=DOWN)
+        resultText.arrange(direction=DOWN).scale(0.7)
+        resultText[0][1].set_color(RED)
 
         # self.play(Write(resultText))
         self.wait()
         self.play(Write(resultText))
-        self.wait()
+        self.wait(5)
         self.clear()
         result2 = self.plot_portraits2(
             originalImages,  h, w, n_row=4, n_col=4)
-        celebrityText = TextMobject("Here are 16 of them", direction=TOP)
+        celebrityText = TextMobject(
+            "Here are ", " 16 ", " of them", direction=TOP)
+        celebrityText[1].set_color(RED)
         result3 = self.plot_portraits2(
             originalImages,  h, w, n_row=4, n_col=4)
         result = self.plot_portraits(
@@ -39,8 +42,8 @@ class EigenFace(Scene):
         self.clear()
         self.play(FadeIn(result))
 
-        self.wait(5)
-        n_components = 100
+        self.wait(3)
+        n_components = 50
         X = self.images.reshape(n_samples, h*w)
         P, C, M, Y = self.pca(X, n_components)
 
@@ -68,18 +71,88 @@ class EigenFace(Scene):
 
         self.clear()
 
+        sampleImage = ImageMobject('David_Beckham_0001.png')
+        sampleImage.scale(0.7)
+        sampleImage.shift(LEFT*2)
+        brace1 = Brace(sampleImage, direction=TOP)
+
+        braceText1 = brace1.get_text("64px")
+        braceText1.scale(0.7)
+        brace2 = Brace(sampleImage, direction=LEFT)
+
+        braceText2 = brace2.get_text("64px")
+        braceText2.scale(0.7)
+
+        sampleImageText = TextMobject(
+            "This image can be represented as a", " Column Matrix", " as")
+        sampleImageText[1].set_color(GREEN)
+        sampleImageText.move_to(TOP*0.7).scale(0.8)
+        equalsText = TextMobject("=")
+
+        text = TexMobject(
+            "\\begin{bmatrix} {a}{01}  \\\ {a}{02}  \\\ . \\\ . \\\ . \\\ .\\\ . \\\ {a}{63} \\\ {a}{64}  \\end{bmatrix}"
+            #"\\begin{bmatrix} {b}{11} & {b}{12} & . & . & {b}{1n} \\\ {b}{21} & {b}{22} & . & . & {b}{2n} \\\ . & . & . & . & . \\\ {b}{m1} & {b}{m2} & . & . & {b}_{mn}\\end{bmatrix}", "=",
+        )
+        text.scale(0.5).move_to(RIGHT)
+
+        newText = TextMobject(
+            "Thus a set of ", " 1000 ", " images can be represented as: ")
+        newText[1].set_color(RED)
+        newText.move_to(TOP*0.7).scale(0.8)
+        matrixUpperText1 = TextMobject("X \\quad = ")
+        matrixUpperText1.shift(LEFT*2).scale(0.8)
+
+        matrixText2 = TexMobject(
+            """ \\begin{bmatrix} {a}{11} & {a}{12} & {a}{13} & . & . & ........\\\ {a}{21} & {a}{22} & {a}{23} & . & . & ........ \\\ {a}{31} & {a}{32} & {a}{33} & . & . & ........    
+            \\\ . & . & . & . & . & ........\\\ . & . & . & . & . & ........\\\ . & . & . & . & . & ........\\\ . & . & . & . & . & ........
+            \\\ . & . & . & . & . & ........\\\ . & . & . & . & . & ........\\\ {a}{n1}   & . & . & . & . & ........\\end{bmatrix}""")
+        matrixText2.scale(0.5).shift(RIGHT)
+
+        matrixUpperText2 = TextMobject(
+            "I1 \\quad I2 \\quad I3 .  .  .  . ")
+        matrixUpperText2.set_color(YELLOW)
+        matrixUpperText2.scale(0.58).shift(0.70*RIGHT).shift(0.45*TOP)
+
+        self.play(FadeIn(sampleImage))
+        self.wait(1)
+
+        self.play(GrowFromCenter(brace1), FadeIn(braceText1),
+                  GrowFromCenter(brace2), FadeIn(braceText2),)
+        self.wait()
+
+        self.play(Write(sampleImageText))
+        self.wait(1)
+
+        self.play(Write(equalsText), Write(text))
+        self.wait(5)
+        self.clear()
+
+        self.play(Write(newText))
+        self.wait()
+
+        self.play(Write(matrixUpperText1), Write(matrixText2))
+        self.wait()
+        self.wait()
+        self.play(Write(matrixUpperText2))
+        self.wait(5)
+        self.clear()
+
         eigenFaceText = VGroup(
-            TextMobject("We subtract the original images matrix from the"),
+            TextMobject("We subtract", " X ", " from the"),
             TextMobject("Mean image to get centered image matrix")).arrange(direction=DOWN)
         eigenFaceText2 = VGroup(TextMobject(
             "On this centered image, we perform "), TextMobject(
-            "Singular Value Decomposition to obtain eigenfaces")).arrange(direction=DOWN)
-        eigenFaceText2.shift(DOWN*2)
+            "Singular Value Decomposition", " to obtain eigenfaces")).arrange(direction=DOWN)
+        eigenFaceText.shift(TOP*1.5).scale(0.7)
+        eigenFaceText[0][1].set_color(GREEN)
+        eigenFaceText2[1][1].set_color(GREEN)
+        eigenFaceText2.shift(DOWN*1.5).scale(0.7)
         self.play(Write(eigenFaceText))
-        self.wait(5)
+        self.wait(3)
         self.play(Write(eigenFaceText2))
-        self.wait(5)
+        self.wait(3)
         self.clear()
+
         eigenFaceText3 = TextMobject("Thus the Eigen Faces obtained:")
         eigenFaceText3.move_to(3.5*UP)
         self.play(Write(eigenFaceText3))
@@ -96,7 +169,7 @@ class EigenFace(Scene):
         recoverGroup = VGroup(TextMobject(
             "We can recover the original images"), TextMobject("with the help of eigen faces")).arrange(direction=DOWN)
         recoverGroupText2 = TextMobject(
-            "Let's start with 100 principle components")
+            "Let's start with 50 principle components")
         self.play(Write(recoverGroup))
         self.wait(5)
         self.clear()
@@ -141,7 +214,7 @@ class EigenFace(Scene):
         self.wait(5)
 
         textGroup = VGroup(TextMobject("The recovered image is not very clear"), TextMobject(
-            "Let's increase no. of principle components to 500")
+            "Let's increase no. of principle components to 300")
         ).arrange(direction=DOWN)
 
         textGroup.shift(DOWN*2)
@@ -156,7 +229,7 @@ class EigenFace(Scene):
         self.wait(3)
         self.clear()
 
-        n_components = 500
+        n_components = 300
         X = self.images.reshape(n_samples, h*w)
         P, C, M, Y = self.pca(X, n_components)
 
