@@ -58,3 +58,4 @@ file 'file:C:/Users/admin/Machine Learning/Visualizing-Linear-Algebra/ManimProje
 file 'file:C:/Users/admin/Machine Learning/Visualizing-Linear-Algebra/ManimProjects/Eigen Faces/media/videos/eigen_face/480p15/partial_movie_files/EigenFace/00057.mp4'
 file 'file:C:/Users/admin/Machine Learning/Visualizing-Linear-Algebra/ManimProjects/Eigen Faces/media/videos/eigen_face/480p15/partial_movie_files/EigenFace/00058.mp4'
 file 'file:C:/Users/admin/Machine Learning/Visualizing-Linear-Algebra/ManimProjects/Eigen Faces/media/videos/eigen_face/480p15/partial_movie_files/EigenFace/00059.mp4'
+file 'file:C:/Users/admin/Machine Learning/Visualizing-Linear-Algebra/ManimProjects/Eigen Faces/media/videos/eigen_face/480p15/partial_movie_files/EigenFace/00060.mp4'
