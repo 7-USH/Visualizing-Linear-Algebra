@@ -5,12 +5,21 @@ from seaborn.axisgrid import Grid
 from manimlib.imports import *
 from manim import *
 import numpy as np
-from manim_presentation import *
 import os
+
 
 class GrayScaleScene(Scene):
     def construct(self):
         sns.set(color_codes=True)
+
+
+        whyRGB = TextMobject("Why"," R","G","B"," ?",run_time=3).scale(2.4)
+        whyRGB[1].set_color(RED)
+        whyRGB[2].set_color(GREEN)
+        whyRGB[3].set_color(BLUE)
+        self.play(Write(whyRGB))
+        self.wait(3)
+        self.clear()
 
         oriImage = ImageMobject('demoCartoon.png')
         oriImage.shift(LEFT*2)
@@ -42,43 +51,35 @@ class GrayScaleScene(Scene):
         oriImage.shift(RIGHT*2)
         oriImage.generate_target()
         oriImage.target.shift(LEFT*2)
-        self.play(MoveToTarget(oriImage,run_time = 2))
+        self.play(MoveToTarget(oriImage, run_time=2))
         self.wait()
 
         arrow.next_to(oriImage)
         self.play(Write(arrow))
         self.wait()
-        
+
         shapeTex = TexMobject(imageShape)
-        
+
         imageCV2ShapeTex = TexMobject(imageCV2Shape)
         shapeTex.next_to(arrow)
         shapeBrace = Brace(mobject=shapeTex, direction=TOP, buff=0.2)
         shapeBraceText = shapeBrace.get_text("shape")
         self.play(Write(shapeTex))
         self.wait()
-        self.play(GrowFromCenter(shapeBrace),FadeIn(shapeBraceText),run_time=2)
-        self.wait()
-        
-        newImageObj.next_to(arrow,LEFT)
-        imageCV2ShapeTex.next_to(arrow)
-        self.wait(5)
-        self.play(Transform(oriImage,newImageObj))
-        self.play(Transform(shapeTex,imageCV2ShapeTex))
-        self.wait()
-        self.clear()
-        
+        self.play(GrowFromCenter(shapeBrace),
+                  FadeIn(shapeBraceText), run_time=2)
         self.wait()
 
-        rendered_code = Code(file_name="openCVimage.py", background="white",
-                             line_spacing=0.3,
-                             tab_width=3,
-                             background_stroke_width=1,
-                             background_stroke_color=WHITE,
-                             language="Python", font="Monospace", insert_line_no=False)
-        rendered_code.scale(0.7).move_to(UR*0.2)
-        self.add(rendered_code)
+        newImageObj.next_to(arrow, LEFT)
+        imageCV2ShapeTex.next_to(arrow)
+        self.wait(5)
+        self.play(Transform(oriImage, newImageObj))
+        self.play(Transform(shapeTex, imageCV2ShapeTex))
         self.wait()
+        self.clear()
+
+        self.wait()
+
         
 class FourierBasis(Scene):
     def construct(self):
@@ -91,20 +92,22 @@ class FourierBasis(Scene):
         self.play(Write(s))
         self.play(Write(eq))
 
-
-        a = TexMobject("\sqrt{2}\sin (x),", "\sqrt{2}\sin (2x),", "\sqrt{2}\sin (3x),","...,")
-        b = TexMobject("\sqrt{2}\cos (x),", "\sqrt{2}\cos (2x),", "\sqrt{2}\cos (3x),","...,")
+        a = TexMobject("\sqrt{2}\sin (x),",
+                       "\sqrt{2}\sin (2x),", "\sqrt{2}\sin (3x),", "...,")
+        b = TexMobject("\sqrt{2}\cos (x),",
+                       "\sqrt{2}\cos (2x),", "\sqrt{2}\cos (3x),", "...,")
         c = TexMobject("\ 1 (x)")
-        group = VGroup(a,b,c).arrange(DOWN)
-        group.next_to(eq,buff=1.0)
+        group = VGroup(a, b, c).arrange(DOWN)
+        group.next_to(eq, buff=1.0)
 
-        leftBrace = Brace(mobject=group,direction=LEFT,buff=0.2)
-        rightBrace = Brace(mobject=group, direction=RIGHT,buff=0.2)
-        
+        leftBrace = Brace(mobject=group, direction=LEFT, buff=0.2)
+        rightBrace = Brace(mobject=group, direction=RIGHT, buff=0.2)
+
         self.play(Write(group))
-        self.play(GrowFromEdge(leftBrace,edge=LEFT))
-        self.play(GrowFromEdge(rightBrace,edge=RIGHT))
-        self.wait() 
+        self.play(GrowFromEdge(leftBrace, edge=LEFT))
+        self.play(GrowFromEdge(rightBrace, edge=RIGHT))
+        self.wait()
+
 
 class FourierCirclesScene(ZoomedScene):
     CONFIG = {
@@ -447,6 +450,7 @@ class FourierCirclesScene(ZoomedScene):
 
         self.zoomed_display.add_updater(update_camera)
 
+
 class AbstractFourierOfTexSymbol(FourierCirclesScene):
     CONFIG = {
         "n_vectors": 50,
@@ -486,7 +490,7 @@ class AbstractFourierOfTexSymbol(FourierCirclesScene):
         if self.n_cycles != None:
             if not self.scale_zoom_camera_to_full_screen:
                 for n in range(self.n_cycles):
-                   self.run_one_cycle()
+                    self.run_one_cycle()
             else:
                 cycle = 1 / self.slow_factor
                 total_time = cycle * self.n_cycles
@@ -534,6 +538,7 @@ class AbstractFourierOfTexSymbol(FourierCirclesScene):
         path = tex_mob.family_members_with_points()[0]
         return path
 
+
 class AbstractFourierFromSVG(AbstractFourierOfTexSymbol):
     CONFIG = {
         "n_vectors": 101,
@@ -556,6 +561,7 @@ class AbstractFourierFromSVG(AbstractFourierOfTexSymbol):
         shape = self.get_shape()
         path = shape.family_members_with_points()[0]
         return path
+
 
 class FourierFromSVG(AbstractFourierFromSVG):
     CONFIG = {
@@ -604,15 +610,17 @@ class FourierFromSVG(AbstractFourierFromSVG):
         "parametric_function_step_size": 0.001,
     }
 
+
 class SVGDefault(FourierFromSVG):
     CONFIG = {
-        "slow_factor":0.02,
+        "slow_factor": 0.02,
         "n_vectors": 100,
         "n_cycles": 1,
         "file_name": "VJTI.svg",
-        "include_zoom_camera":True,
-        "zoom_position":lambda zc : zc.to_corner(DR),
+        "include_zoom_camera": True,
+        "zoom_position": lambda zc: zc.to_corner(DR),
     }
+
 
 class Image(Scene):
     def construct(self):
@@ -630,6 +638,7 @@ class Image(Scene):
         self.wait()
         self.play(Write(text))
         self.wait()
+
 
 class VJTILogo(Scene):
     def construct(self):
@@ -666,7 +675,6 @@ class VJTILogo(Scene):
         vjtiTex[2].next_to(vjtiTex[1], direction=RIGHT).scale(0.5)
 
         finalMat = TexMobject("\\begin{bmatrix} {a}_{11} + {b}_{11} & {a}_{12} + {b}_{12} & . & . & {a}_{1n} + {b}_{1n}\\\ {a}_{21} + {b}_{21} & {a}_{22} + {b}_{22}  & . & . & {a}_{2n} + {b}_{2n} \\\ . & . & . & . & . \\\ {a}_{m1}+{b}_{m1} & {a}_{m2}+{b}_{m2} & . & . & {a}_{mn}+{b}_{mn}\\end{bmatrix}")
-     
 
         pageText = Paragraph(
             "The Given two Images can be Seen as Matrix A & B", font="Lato")
@@ -699,26 +707,28 @@ class VJTILogo(Scene):
         self.wait(2)
         self.clear()
         addedImage.scale(1.5).shift(LEFT*4)
-        self.play(FadeIn(addedImage,run_time=2))
+        self.play(FadeIn(addedImage, run_time=2))
         self.wait()
 
+
 class ExplaningGrowth(Scene):
-	def construct(self):
-		t1 = TextMobject("This is how a vector", "Scales",
-		                 "when multiplied by a number", "greater than 1")
-		t1[1].set_color(GREEN)
-		t1[3].set_color(BLUE)
-		t1[0].move_to(1.5*UP)
-		t1[1].move_to(1*UP)
-		t1[2].move_to(0.5*UP)
-		t1[3].move_to(0)
-		self.play(Write(t1))
-		self.wait(1.5)
-              
+    def construct(self):
+        t1 = TextMobject("This is how a vector", "Scales",
+                         "when multiplied by a number", "greater than 1")
+        t1[1].set_color(GREEN)
+        t1[3].set_color(BLUE)
+        t1[0].move_to(1.5*UP)
+        t1[1].move_to(1*UP)
+        t1[2].move_to(0.5*UP)
+        t1[3].move_to(0)
+        self.play(Write(t1))
+        self.wait(1.5)
+
+
 class ScalingGrow(LinearTransformationScene):
     CONFIG = {
         "leave_ghost_vectors": True,
-        }
+    }
 
     def construct(self):
         v = np.array([[1], [1]])
@@ -729,70 +739,78 @@ class ScalingGrow(LinearTransformationScene):
         self.apply_matrix(matrix=matrix)
         self.wait()
 
+
 class ReflectionAboutXAxisExplanation(Scene):
-	def construct(self):
-		t1 = TextMobject("Now Let's visualise a ", "Reflection ","about X axis")
-		t1[1].set_color(YELLOW)
-		self.play(Write(t1))
-		self.wait()
+    def construct(self):
+        t1 = TextMobject("Now Let's visualise a ",
+                         "Reflection ", "about X axis")
+        t1[1].set_color(YELLOW)
+        self.play(Write(t1))
+        self.wait()
+
 
 class ReflectionAboutXAxis(LinearTransformationScene):
-	CONFIG = {
-		"leave_ghost_vectors": True,
-	}
+    CONFIG = {
+        "leave_ghost_vectors": True,
+    }
 
-	def construct(self):
-		matrix = [[1, 0], [0, -1]]
-		object = Dot(color=DARK_BLUE)
-		self.add(object)
-		v = np.array([[-1], [2]])
-		self.add_vector(v)
-		self.apply_matrix(matrix)
-		self.wait()
+    def construct(self):
+        matrix = [[1, 0], [0, -1]]
+        object = Dot(color=DARK_BLUE)
+        self.add(object)
+        v = np.array([[-1], [2]])
+        self.add_vector(v)
+        self.apply_matrix(matrix)
+        self.wait()
+
 
 class AntiClockWiseRotation60Explanation(Scene):
-	def construct(self):
-		t1 = TextMobject("This is a 60 degree", " Anticlockwise Rotation")
-		t1[1].set_color(YELLOW)
-		self.play(Write(t1))
-		self.wait()
+    def construct(self):
+        t1 = TextMobject("This is a 60 degree", " Anticlockwise Rotation")
+        t1[1].set_color(YELLOW)
+        self.play(Write(t1))
+        self.wait()
+
 
 class AntiClockWiseRotation60(LinearTransformationScene):
-	CONFIG = {
-		"leave_ghost_vectors": True,
-		"angle": np.pi/3,
-	}
+    CONFIG = {
+        "leave_ghost_vectors": True,
+        "angle": np.pi/3,
+    }
 
-	def construct(self):
-            matrix = [[np.cos(self.angle), -1*np.sin(self.angle)],
-                [np.sin(self.angle), np.cos(self.angle)]]
-            object = Dot(color=DARK_BLUE)
-            self.add(object)
-            v = np.array([[2], [1]])
-            self.add_vector(v)
-            self.apply_matrix(matrix)
-            self.wait()
+    def construct(self):
+        matrix = [[np.cos(self.angle), -1*np.sin(self.angle)],
+                  [np.sin(self.angle), np.cos(self.angle)]]
+        object = Dot(color=DARK_BLUE)
+        self.add(object)
+        v = np.array([[2], [1]])
+        self.add_vector(v)
+        self.apply_matrix(matrix)
+        self.wait()
+
 
 class ShearInXDirectionExplanation(Scene):
-	def construct(self):
-		t1 = TextMobject("This is a ", "Shear", " in ", "x ", "direction")
-		t1[1].set_color(YELLOW)
-		t1[3].set_color(GREEN)
-		self.play(Write(t1))
-		self.wait()
+    def construct(self):
+        t1 = TextMobject("This is a ", "Shear", " in ", "x ", "direction")
+        t1[1].set_color(YELLOW)
+        t1[3].set_color(GREEN)
+        self.play(Write(t1))
+        self.wait()
+
 
 class ShearInXDirection(LinearTransformationScene):
-	CONFIG = {
-		"leave_ghost_vectors": True,
-	}
+    CONFIG = {
+        "leave_ghost_vectors": True,
+    }
 
-	def construct(self):
-		matrix = [[1, 1], [0, 1]]
-		object = Dot(color=DARK_BLUE)
-		v = np.array([[2], [2]])
-		self.add_vector(v)
-		self.apply_matrix(matrix)
-		self.wait()
+    def construct(self):
+        matrix = [[1, 1], [0, 1]]
+        object = Dot(color=DARK_BLUE)
+        v = np.array([[2], [2]])
+        self.add_vector(v)
+        self.apply_matrix(matrix)
+        self.wait()
+
 
 class AffineTransformation(Scene):
     def construct(self):
@@ -800,12 +818,48 @@ class AffineTransformation(Scene):
         square = Square()
         coords = np.around(ax.point_to_coords())
         label = ((
-            Matrix([[coords[0]], [coords[1]]]).scale(0.75).next_to(square, RIGHT)
+            Matrix([[coords[0]], [coords[1]]]).scale(
+                0.75).next_to(square, RIGHT)
         ))
         textMatrix = TexMobject("a_{0}")
         textMatrix.next_to(label)
         plus = TexMobject("+")
         plus.next_to(textMatrix)
-        
-        self.add(ax,square,label,Dot(square.get_right()))
+
+        self.add(ax, square, label, Dot(square.get_right()))
         self.wait()
+
+
+class CreditScene(Scene):
+    def construct(self):
+        colorytext = TextMobject("Python ", "and", " Manim Engine")
+        colorytext[0].set_color(color=DARK_BLUE)
+        colorytext[2].set_color(color=DARK_BLUE)
+        nameText = VGroup(
+            TextMobject("All the Animations and Scenes used "),
+            TextMobject("in this presentation are Created using"),
+            colorytext
+        ).arrange(direction=DOWN)
+        self.play(Write(nameText), run_time=4)
+        self.wait()
+        link = TextMobject(
+            "https://github.com/7-USH/Visualizing-Linear-Algebra")
+        link.set_color(color=ORANGE)
+        sourceCode = VGroup(TextMobject("You can checkout this repository for the source code"),
+                            link).arrange(direction=DOWN)
+        self.play(Transform(nameText, sourceCode))
+        self.wait(4)
+        self.clear()
+
+        itTakes = TextMobject("It takes a big").scale(2)
+        heart = TextMobject(
+            "Heart").set_color_by_gradient(RED,BLUE,GREEN).scale(3)
+        toShape = TextMobject("to help shape").scale(2)
+        littleMind = TextMobject(
+            "little minds").set_color_by_gradient(RED, BLUE, GREEN).scale(3)
+        thankyou = TextMobject("Thank you for being our teacher!")    
+        thankText = VGroup(itTakes,heart,toShape,littleMind,thankyou).arrange(DOWN)
+    
+        self.play(Transform(sourceCode, thankText), run_time=4)
+        self.wait(3)
+        

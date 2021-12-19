@@ -36,9 +36,12 @@ file 'file:C:/Users/admin/Machine Learning/Visualizing-Linear-Algebra/ManimProje
 file 'file:C:/Users/admin/Machine Learning/Visualizing-Linear-Algebra/ManimProjects/Eigen Faces/media/videos/eigen_face/480p15/partial_movie_files/EigenFace/00035.mp4'
 file 'file:C:/Users/admin/Machine Learning/Visualizing-Linear-Algebra/ManimProjects/Eigen Faces/media/videos/eigen_face/480p15/partial_movie_files/EigenFace/00036.mp4'
 file 'file:C:/Users/admin/Machine Learning/Visualizing-Linear-Algebra/ManimProjects/Eigen Faces/media/videos/eigen_face/480p15/partial_movie_files/EigenFace/00037.mp4'
+<<<<<<< HEAD
 file 'file:C:/Users/admin/Machine Learning/Visualizing-Linear-Algebra/ManimProjects/Eigen Faces/media/videos/eigen_face/480p15/partial_movie_files/EigenFace/00038.mp4'
 file 'file:C:/Users/admin/Machine Learning/Visualizing-Linear-Algebra/ManimProjects/Eigen Faces/media/videos/eigen_face/480p15/partial_movie_files/EigenFace/00039.mp4'
 file 'file:C:/Users/admin/Machine Learning/Visualizing-Linear-Algebra/ManimProjects/Eigen Faces/media/videos/eigen_face/480p15/partial_movie_files/EigenFace/00040.mp4'
 file 'file:C:/Users/admin/Machine Learning/Visualizing-Linear-Algebra/ManimProjects/Eigen Faces/media/videos/eigen_face/480p15/partial_movie_files/EigenFace/00041.mp4'
 file 'file:C:/Users/admin/Machine Learning/Visualizing-Linear-Algebra/ManimProjects/Eigen Faces/media/videos/eigen_face/480p15/partial_movie_files/EigenFace/00042.mp4'
 file 'file:C:/Users/admin/Machine Learning/Visualizing-Linear-Algebra/ManimProjects/Eigen Faces/media/videos/eigen_face/480p15/partial_movie_files/EigenFace/00043.mp4'
+=======
+>>>>>>> master
