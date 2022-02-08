@@ -1,19 +1,18 @@
 # Visualizing Linear Algebra
->Linear algebra is the study of lines and planes, vector spaces and mappings that are required for linear transforms.
-___
+>Linear algebra is the study of lines and planes, vector spaces.Linear algebra is about linear combinations. That is, using arithmetic on columns of numbers called vectors and arrays of numbers called matrices, to create new columns and arrays of numbers. Linear algebra is the study of lines and planes, vector spaces and mappings that are required for linear transforms.
 ## 👥 Contributors
 
 - [**Tushar Mali**](https://github.com/7-USH) - tush1245@gmail.com
 
 - [**Soumitra Kand**](https://github.com/soumitrakand7/) - soumitrakand3@gmail.com
 
-___
+
 
 ## 📄 Description
 > Animating technical concepts is traditionally pretty tedious since it can be difficult to make the animations precise enough to convey them accurately. Manim relies on Python’s simplicity to generate animations programmatically, making it convenient to specify exactly how each one should run. Take a look at the Example Gallery for some inspiration on how to create beautiful images and videos with Manim.
 
 - Refer to [**3b1b/manim**](https://github.com/3b1b/manim) for more details about manim engine.
-___
+
 
 # 👨 Eigen Faces
  - An eigenface is the name given to a set of eigenvectors when used in the computer vision problem of human face recognition. 
@@ -50,6 +49,6 @@ ___
         U, S, V = np.linalg.svd(centered_data)
         components = V[:n_pc]
         projected = U[:, :n_pc]*S[:n_pc]
-        return projected, components, mean, centered_data```
+        return projected, components, mean, centered_data
+```
 
-        
