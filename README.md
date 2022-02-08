@@ -20,6 +20,6 @@
 
  - The approach of using eigenfaces for recognition was developed by Sirovich and Kirby and used by Matthew Turk and Alex Pentland in face classification.
 
-- The following images shows are example of Eigen faces
+- The following images shown are example of Eigen faces
 
-![eigen](ManimProjects\eigenFaces.png)
+![eigen](eigenFaces.png)
